@@ -48,13 +48,13 @@ describe('Marker', () => {
                               position={location} />);
     });
 
-    it('creates a location from the position prop', () => {
+    it('creates a location from the path prop', () => {
       wrapper.setProps({map: map})
       sinon.assert
         .calledWith(google.maps.LatLng, location.lat, location.lng)
     });
 
-    it('creates a Marker from the position prop', () => {
+    it('creates a Marker from the path prop', () => {
       wrapper.setProps({map: map})
       sinon.assert.called(google.maps.Marker)
     });

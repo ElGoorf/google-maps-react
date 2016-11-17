@@ -86,9 +86,9 @@ const Contents = React.createClass({
                 height: '100vh',
                 width: '100%'
               }}
-              center={this.state.position}
+              center={this.state.path}
               centerAroundCurrentLocation={false}>
-                <Marker position={this.state.position} />
+                <Marker position={this.state.path} />
           </Map>
         </div>
       </div>

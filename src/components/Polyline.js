@@ -16,63 +16,61 @@ const wrappedPromise = function() {
     return wrappedPromise;
 }
 
-export class Marker extends React.Component {
+export class Polyline extends React.Component {
 
   componentDidMount() {
-    this.markerPromise = wrappedPromise();
-    this.renderMarker();
+    this.polylinePromise = wrappedPromise();
+    this.renderPolyline();
   }
 
   componentDidUpdate(prevProps) {
     if ((this.props.map !== prevProps.map) ||
       (this.props.position !== prevProps.path)) {
-        this.marker.setMap(null);
-        this.renderMarker();
+        this.polyline.setMap(null);
+        this.renderPolyline();
     }
   }
 
   componentWillUnmount() {
-    if (this.marker) {
-      this.marker.setMap(null);
+    if (this.polyline) {
+      this.polyline.setMap(null);
     }
   }
 
-  renderMarker() {
+  renderPolyline() {
     let {
-      map, google, position, mapCenter, icon
+      map, google, path, mapCenter, opacity
     } = this.props;
     if (!google) {
       return null
     }
-
-    let pos = position || mapCenter;
-    if (!(pos instanceof google.maps.LatLng)) {
-      position = new google.maps.LatLng(pos.lat, pos.lng);
+    if (!(path instanceof Array)) {
+      path = [];
     }
 
     const pref = {
       map: map,
-      position: position,
-      icon: icon
+      path: path,
+      opacity: opacity
     };
-    this.marker = new google.maps.Marker(pref);
+    this.polyline = new google.maps.Polyline(pref);
 
     evtNames.forEach(e => {
-      this.marker.addListener(e, this.handleEvent(e));
+      this.polyline.addListener(e, this.handleEvent(e));
     });
 
-    this.markerPromise.resolve(this.marker);
+    this.polylinePromise.resolve(this.polyline);
   }
 
-  getMarker() {
-    return this.markerPromise;
+  getPolyline() {
+    return this.polylinePromise;
   }
 
   handleEvent(evt) {
     return (e) => {
       const evtName = `on${camelize(evt)}`
       if (this.props[evtName]) {
-        this.props[evtName](this.props, this.marker, e);
+        this.props[evtName](this.props, this.polyline, e);
       }
     }
   }
@@ -82,16 +80,16 @@ export class Marker extends React.Component {
   }
 }
 
-Marker.propTypes = {
-  position: T.object,
+Polyline.propTypes = {
+  path: T.object,
   map: T.object,
-  icon: T.string
+  opacity: T.string
 }
 
-evtNames.forEach(e => Marker.propTypes[e] = T.func)
+evtNames.forEach(e => Polyline.propTypes[e] = T.func)
 
-Marker.defaultProps = {
-  name: 'Marker'
+Polyline.defaultProps = {
+  name: 'Polyline'
 }
 
-export default Marker
+export default Polyline

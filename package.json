@@ -14,12 +14,12 @@
   "main": "dist/index.js",
   "scripts": {
     "preversion": ". ./scripts/prepublish.sh",
-    "dev": "NODE_ENV=development ./node_modules/hjs-webpack/bin/hjs-dev-server.js",
-    "build": "NODE_ENV=production webpack",
+    "dev": "SET NODE_ENV=development ./node_modules/hjs-webpack/bin/hjs-dev-server.js",
+    "build": "SET NODE_ENV=production webpack",
     "publish_pages": "gh-pages -d public/",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
-    "testonly": "NODE_ENV=test mocha $npm_package_options_mocha",
+    "testonly": "SET NODE_ENV=test mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js"
   },

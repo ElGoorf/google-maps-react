@@ -146,9 +146,9 @@ To place a marker on the Map, include it as a child of the `<Map />` component.
 </Map>
 ```
 
-The `<Marker />` component accepts a `position` prop that defines the location for the `position` on the map. It can be either a raw object or a `google.maps.LatLng()` instance.
+The `<Marker />` component accepts a `path` prop that defines the location for the `path` on the map. It can be either a raw object or a `google.maps.LatLng()` instance.
 
-If no `position` is passed in the `props`, the marker will default to the current position of the map, i.e. the `mapCenter` prop.
+If no `path` is passed in the `props`, the marker will default to the current position of the map, i.e. the `mapCenter` prop.
 
 You can also pass any other `props` you want with the `<Marker />`. It will be passed back through marker events.
 
