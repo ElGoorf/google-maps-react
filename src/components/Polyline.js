@@ -24,10 +24,15 @@ export class Polyline extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if ((this.props.map !== prevProps.map) ||
-      (this.props.position !== prevProps.path)) {
-        this.polyline.setMap(null);
-        this.renderPolyline();
+
+    if(this.props.path !== prevProps.path) {
+      this.polyline.path = this.props.path;
+      this.renderPolyline();
+    }
+
+    if (this.props.map !== prevProps.map) {
+      this.polyline.setMap(null);
+      this.renderPolyline();
     }
   }
 
@@ -81,7 +86,7 @@ export class Polyline extends React.Component {
 }
 
 Polyline.propTypes = {
-  path: T.object,
+  path: T.array,
   map: T.object,
   opacity: T.string
 }
